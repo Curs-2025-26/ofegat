@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php" colors="true">
+  <testsuites>
+    <testsuite name="Entrega1">
+      <directory>tests/Entrega1</directory>
+    </testsuite>
+    <testsuite name="Entrega2">
+      <directory>tests/Entrega2</directory>
+    </testsuite>
+    <testsuite name="Entrega3">
+      <directory>tests/Entrega3</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

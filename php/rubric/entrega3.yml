@@ -1,0 +1,7 @@
+weights:
+  gameplay_ok: 2
+  poo_ok: 2
+  autoload: 1
+  file_usage: 2
+  extras: 2
+  code_org: 1

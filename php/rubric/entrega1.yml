@@ -1,0 +1,9 @@
+weights:
+  init_vars: 2
+  func_check: 3
+  check_usage: 3
+  css: 1
+  clarity: 1
+checks:
+  css_class_present: ["assets/style.css", [".correct", ".incorrect"]]
+  files_required: ["public/index.php","src/functions.php"]

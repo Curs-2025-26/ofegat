@@ -1,0 +1,7 @@
+weights:
+  gameplay: 2
+  sessions: 1
+  cookies: 1
+  auth: 3
+  ui: 1
+  extra: 2

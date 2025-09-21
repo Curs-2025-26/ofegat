@@ -1,0 +1,1 @@
+<hr/><footer><small>&copy; Classe DAW/DAM</small></footer>
