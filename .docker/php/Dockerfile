@@ -1,25 +1,17 @@
-# --- Stage 1: Composer (per copiar binari) ---
 FROM composer:2 AS composer_stage
-
-# --- Stage 2: PHP-FPM ---
 FROM php:8.3-fpm
 
-# Paquets de sistema (consolidat i net)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        libzip-dev libicu-dev zlib1g-dev git unzip \
+      libzip-dev libicu-dev zlib1g-dev git unzip curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Extensions PHP comunes
-RUN docker-php-ext-install -j$(nproc) \
-        zip intl mbstring opcache
+RUN docker-php-ext-install -j"$(nproc)" zip intl mbstring opcache
+# Instal·la Xdebug però NO l’activa al base; s’activarà amb l’ini del perfil dev
+RUN pecl install xdebug
 
-# Xdebug (opcional). Deixa'l instal·lat però l’habilites amb ini separat
-RUN pecl install xdebug && docker-php-ext-enable xdebug
-
-# Copia Composer del stage oficial
 COPY --from=composer_stage /usr/bin/composer /usr/bin/composer
 
-# Config bàsica de PHP (error reporting, etc.)
+# Config PHP bàsica
 RUN { \
       echo "display_errors=1"; \
       echo "display_startup_errors=1"; \
@@ -29,13 +21,14 @@ RUN { \
       echo "upload_max_filesize=10M"; \
     } > /usr/local/etc/php/conf.d/custom.ini
 
-# Xdebug desactivat per defecte; activa-ho amb un fitxer ini en dev
-# (si uses docker compose amb perfil 'dev', munta un xdebug.ini)
-# Exemple d’un xdebug.ini per a dev:
-#   zend_extension=xdebug
-#   xdebug.mode=debug,develop
-#   xdebug.start_with_request=trigger
-#   xdebug.client_host=host.docker.internal
-#   xdebug.client_port=9003
+# Habilita ping/status de FPM (per healthcheck)
+RUN { \
+      echo "ping.path = /fpm-ping"; \
+      echo "pm.status_path = /fpm-status"; \
+    } > /usr/local/etc/php-fpm.d/zz-ping.conf
+
+# Mini server per respondre /fpm-ping via HTTP (port 9001)
+RUN echo '<?php header("Content-Type:text/plain"); echo "pong";' > /fpm-ping.php
+CMD php -S 0.0.0.0:9001 /fpm-ping.php & php-fpm
 
 WORKDIR /var/www/php

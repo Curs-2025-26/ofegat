@@ -3,7 +3,7 @@ services:
     image: nginx:1.27-alpine
     container_name: webserver
     ports:
-      - "80:80"             
+      - "80:80"                      # canvia a "8080:80" si tens el 80 ocupat
     volumes:
       - ./php:/var/www/php:cached
       - ./.docker/nginx/conf.d:/etc/nginx/conf.d:ro
@@ -22,7 +22,6 @@ services:
     volumes:
       - ./php:/var/www/php:cached
       - ./.docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
-      - ./.docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://127.0.0.1:9001/fpm-ping"]
       interval: 10s
@@ -30,7 +29,6 @@ services:
       retries: 5
     networks: [web]
     restart: unless-stopped
-    profiles: ["dev"]   
 
 networks:
   web:
