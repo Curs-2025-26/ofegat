@@ -6,7 +6,7 @@
 - Fer **autoavaluació**: totes les proves (tests + rúbriques) estan disponibles a l’alumnat.
 
 ## 🧰 Requisits
-- PHP 8.2+ i Composer
+- PHP 8.3+ i Composer
 - Navegador web
 
 **Instal·lació**
