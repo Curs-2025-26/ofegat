@@ -1,0 +1,54 @@
+{
+  "tests": [
+    {
+      "name": "Install Composer (php/)",
+      "setup": "",
+      "run": "cd php && composer install --no-interaction --no-progress",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 60000,
+      "points": 0
+    },
+    {
+      "name": "PHPUnit E1",
+      "setup": "",
+      "run": "cd php && composer test -- --testsuite Entrega1",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 60000,
+      "points": 6
+    },
+    {
+      "name": "CS Fixer (lint)",
+      "setup": "",
+      "run": "cd php && composer lint",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 60000,
+      "points": 1
+    },
+    {
+      "name": "PHPStan",
+      "setup": "",
+      "run": "cd php && composer stan",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 60000,
+      "points": 1
+    },
+    {
+      "name": "Grade script E1",
+      "setup": "",
+      "run": "cd php && composer grade:e1",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 60000,
+      "points": 2
+    }
+  ]
+}
