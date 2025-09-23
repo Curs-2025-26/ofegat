@@ -33,8 +33,8 @@ if ($stage === 1) {
   $cssOk = fileHas(__DIR__.'/../'.$rubric['checks']['css_class_present'][0], '.correct')
         && fileHas(__DIR__.'/../'.$rubric['checks']['css_class_present'][0], '.incorrect');
 
-  exec('composer test --testsuite Entrega1', $out, $tcode);
-  $testsOk = ($tcode===0);
+  exec('composer test:e1', $out, $tcode); // <-- només Entrega1
+  $testsOk = ($tcode === 0);
 
   $initVars = fileHas(__DIR__.'/../src/functions.php', 'inicialitzaProgres');
   $funcCheck = fileHas(__DIR__.'/../src/functions.php', 'comprovarIntent');
@@ -46,7 +46,8 @@ if ($stage === 1) {
   $score += ok($lintOk, $w['clarity'], 0);
 
 } elseif ($stage === 2) {
-  exec('composer test --testsuite Entrega2', $out, $tcode);
+  exec('composer test:e2', $out, $tcode); // <-- només Entrega2
+   
   $sessions = fileHas(__DIR__.'/../public/index.php', 'session_start')
            || fileHas(__DIR__.'/../src/SessionAuth.php', 'session_start');
   $cookies  = fileHas(__DIR__.'/../public/login.php', 'setcookie');
@@ -63,7 +64,7 @@ if ($stage === 1) {
 
 } else {
   exec('composer dump-autoload');
-  exec('composer test --testsuite Entrega3', $out, $tcode);
+  exec('composer test:e3', $out, $tcode);
 
   $autoloadOk = class_exists('App\\Joc') && class_exists('App\\GestorPartida');
   $pooOk = fileHas(__DIR__.'/../app/Joc.php','class Joc')

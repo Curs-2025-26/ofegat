@@ -18,6 +18,9 @@
   },
   "scripts": {
     "test": "phpunit",
+    "test:e1": "phpunit --testsuite Entrega1",
+    "test:e2": "phpunit --testsuite Entrega2",
+    "test:e3": "phpunit --testsuite Entrega3",
     "stan": "phpstan analyse --no-progress",
     "lint": "php-cs-fixer fix --dry-run --diff",
     "fix": "php-cs-fixer fix",
